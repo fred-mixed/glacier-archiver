@@ -3,5 +3,5 @@
     "source_dir": "/share/CACHEDEV1_DATA/Photos",
     "dest_dir": "/share/CACHEDEV1_DATA/Archives",
     "log_file": "/share/CACHEDEV1_DATA/Archives/archiver.log",
-    "dry_run": false
+    "dry_run": true
 }

@@ -1,7 +1,7 @@
 {
     "max_size_gb": 100,
-    "source_dir": "/share/CACHEDEV1_DATA/Photos",
-    "dest_dir": "/share/CACHEDEV1_DATA/Archives",
-    "log_file": "/share/CACHEDEV1_DATA/Archives/archiver.log",
-    "dry_run": true
+    "source_dir": "/data/photos",
+    "dest_dir": "/data/archives",
+    "log_file": "/data/archives/archiver.log",
+    "dry_run": false
 }

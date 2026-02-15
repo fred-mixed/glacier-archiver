@@ -1,6 +1,6 @@
 {
     "max_size_gb": 100,
-    "source_dir": "/data/photos",
+    "source_dir": "/data/media",
     "dest_dir": "/data/archives",
     "log_file": "/data/archives/archiver.log",
     "dry_run": false

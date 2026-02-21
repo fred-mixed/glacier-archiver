@@ -2,7 +2,7 @@
     "max_size_gb": 100,
     "source_dir": "/data/media",
     "dest_dir": "/data/archives",
-    "log_file": "/app/archiver.log",
+    "log_file": "/app/log/archiver.log",
     "dry_run": false
 }
 

@@ -9,18 +9,36 @@ from pathlib import Path
 # --- Constants & Setup ---
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
 
+
 def setup_logging(log_file):
     """
-    Initializes the logging system to output to both the console and a file.
-    
-    Args:
-        log_file (str): Path to the destination log file.
+    Initializes logging. In a container environment, it ensures the volume-mapped 
+    directory exists and is writable before attempting to create the log file.
     """
     logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+    
     if log_file:
-        file_handler = logging.FileHandler(log_file)
-        file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
-        logging.getLogger().addHandler(file_handler)
+        log_path = Path(log_file)
+        
+        try:
+            # 1. Ensure the parent directory (mapped volume) exists
+            if not log_path.parent.exists():
+                log_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            # 2. Check if the directory is actually writable (common Docker/QNAP issue)
+            if not os.access(log_path.parent, os.W_OK):
+                logging.error(f"Permission Denied: Cannot write to {log_path.parent}. "
+                              "Check QNAP folder permissions for the container user.")
+                return
+
+            # 3. FileHandler creates the file if it's missing
+            file_handler = logging.FileHandler(log_file)
+            file_handler.setFormatter(logging.Formatter(LOG_FORMAT))
+            logging.getLogger().addHandler(file_handler)
+            
+        except Exception as e:
+            logging.error(f"Failed to initialize file logging: {e}")
+
 
 def load_tracked_files(tracked_path):
     """
@@ -187,7 +205,7 @@ def main():
     setup_logging(config.get("log_file"))
     
     try:
-        process_archiving(config)
+        # process_archiving(config)
         logging.info("Archiving process finished successfully.")
     except Exception as e:
         logging.error(f"Main process encountered an unhandled error: {e}")

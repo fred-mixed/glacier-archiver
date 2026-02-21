@@ -1,0 +1,18 @@
+{
+    "name": "Glacier Archiver Dev",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    "workspaceFolder": "/app",
+    "mounts": [
+        "source=/share/SysDataStore/datastore/development/projects/media-works/glacier-archiver,target=/app,type=bind",
+        "source=/share/media/100-Non-Public/Staging/SonyA7iii/SonyCameraBkp/latest/SD-Slot1,target=/data/media,type=bind,readonly",
+        "source=/share/BackupStore/GlacierArchive/Test,target=/data/archives,type=bind"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    },
+    "remoteUser": "vscode"
+}

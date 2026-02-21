@@ -5,10 +5,11 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the script and config into the container
-COPY archiver.py .
+COPY glacier-archiver.py .
 COPY config.json .
 
 # Run the script when the container starts
-ENTRYPOINT ["python", "archiver.py", "--config", "config.json"]
+ENTRYPOINT ["python", "glacier-archiver.py", "--config", "config.json"]
+
 
 

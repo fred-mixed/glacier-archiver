@@ -1,0 +1,18 @@
+# Step 1: Use a specific Python version as the base
+FROM mcr.microsoft.com/devcontainers/python:3.11
+
+# Step 2: Install system-level dependencies (if needed)
+# For example, if you wanted to add specialized compression tools
+RUN apt-get update && apt-get install -y \
+    zip \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Step 3: Install Python libraries
+# We use --no-cache-dir to keep the image small for your QNAP
+COPY requirements.txt /tmp/pip-tmp/
+RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+    && rm -rf /tmp/pip-tmp
+
+# Step 4: Set the default working directory
+WORKDIR /app

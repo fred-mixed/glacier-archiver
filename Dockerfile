@@ -10,3 +10,5 @@ COPY config.json .
 
 # Run the script when the container starts
 ENTRYPOINT ["python", "archiver.py", "--config", "config.json"]
+
+
